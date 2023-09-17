@@ -11,7 +11,7 @@ export const databaseProviders: Array<Provider> = [
         type: 'postgres',
         host: 'localhost',
         port: 5432,
-        url: 'postgres://postgres:postgres@postgres/newsMedia',
+        url: process.env.POSTGRES_URI,
         entities: [Author, Article],
         synchronize: true,
       });
