@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  main:
+    image: node:18
+    environment:
+      ENVIRONMENT: test
+      PORT: 3000
+      LOG_LEVEL: debug
+      POSTGRES_URI: postgres://postgres:postgres@postgres/newsMedia
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/code
+    working_dir: /code
+    ports: ['3000:3000', '9229:9229']
+    command: sh -c "npm install && npm run start:dev"
+    depends_on: [postgres]
+
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: newsMedia
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports: ['5432:5432']
